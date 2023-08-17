@@ -21,13 +21,24 @@ jobs:
       - name: Build and test frontend
         run: |
           cd frontend
-          docker build -t favegaleon/frontend:v1 .
-          docker push favegaleon/frontend:v1
           go build
           go test ./...
+          docker build -t ${{ COOKIE_PROJECT.DOCKER_REGISTRY }}/${{ COOKIE_PROJECT.DOCKER_USERNAME }}/frontend:v1 .
+          echo ${{ COOKIE_PROJECT.DOCKER_PASSWORD }} | docker login ${{ COOKIE_PROJECT.DOCKER_REGISTRY }} -u ${{ COOKIE_PROJECT.DOCKER_USERNAME }} --password-stdin
+          docker push ${{ COOKIE_PROJECT.DOCKER_REGISTRY }}/${{ COOKIE_PROJECT.DOCKER_USERNAME }}/frontend:v1
+        env:
+          DOCKER_REGISTRY: ${{ COOKIE_PROJECT.DOCKER_REGISTRY }}
+          DOCKER_USERNAME: ${{ COOKIE_PROJECT.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ COOKIE_PROJECT.DOCKER_PASSWORD }}
 
-      - name: Build and test backend
+      - name: Build backend
         run: |
           cd backend
-          docker build -t favegaleon/backend:v1 .
-          docker push favegaleon/backend:v1
+          docker build -t ${{ COOKIE_PROJECT.DOCKER_REGISTRY }}/${{ COOKIE_PROJECT.DOCKER_USERNAME }}/backend:v1 .
+          echo ${{ COOKIE_PROJECT.DOCKER_PASSWORD }} | docker login ${{ COOKIE_PROJECT.DOCKER_REGISTRY }} -u ${{ COOKIE_PROJECT.DOCKER_USERNAME }} --password-stdin
+          docker push ${{ COOKIE_PROJECT.DOCKER_REGISTRY }}/${{ COOKIE_PROJECT.DOCKER_USERNAME }}/backend:v1
+        env:
+          DOCKER_REGISTRY: ${{ COOKIE_PROJECT.DOCKER_REGISTRY }}
+          DOCKER_USERNAME: ${{ COOKIE_PROJECT.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ COOKIE_PROJECT.DOCKER_PASSWORD }}
+          
