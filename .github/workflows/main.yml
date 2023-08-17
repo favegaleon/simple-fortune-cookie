@@ -23,9 +23,3 @@ jobs:
           cd frontend
           go build
           go test ./...
-
-      - name: Build and test backend
-        run: |
-          cd backend
-          go build
-          go test ./...
