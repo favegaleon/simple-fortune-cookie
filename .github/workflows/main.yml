@@ -21,7 +21,13 @@ jobs:
       - name: Build and test frontend
         run: |
           cd frontend
-          docker build -t favegaleon/frontend-img:v1 .
-          docker push favegaleon/frontend-img:v1
+          docker build -t favegaleon/frontend:v1 .
+          docker push favegaleon/frontend:v1
           go build
           go test ./...
+
+      - name: Build and test backend
+        run: |
+          cd backend
+          docker build -t favegaleon/backend:v1 .
+          docker push favegaleon/backend:v1
