@@ -1,0 +1,11 @@
+version: '3'
+services:
+  frontend:
+    image: frontend-img:v1   # Use the name and tag of your frontend Docker image
+    ports:
+      - "8080:8080"           # Map host port 8080 to container port 8080
+
+  backend:
+    image: backend-img:v1    # Use the name and tag of your backend Docker image
+    ports:
+      - "8081:8081"           # Map host port 8081 to container port 8081
